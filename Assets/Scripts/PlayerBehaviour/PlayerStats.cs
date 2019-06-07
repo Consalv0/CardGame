@@ -6,14 +6,23 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerHolder))]
 public class PlayerStats : MonoBehaviour
 {
-    public int maxHealth = 100;
-
     public DamageEvent OnDamage;
     public HealEvent OnHeal;
     public IntChangeEvent OnChangeHealth;
 
+    [SerializeField]
+    private int m_maxHealth = 100;
     private PlayerHolder m_player;
     private int m_health;
+
+    public int maxHealth 
+    {
+        get { return m_maxHealth; }
+        set {
+            m_maxHealth = value;
+            OnChangeHealth.Invoke(m_health);
+        }
+    }
 
     private void Awake()
     {
@@ -31,7 +40,6 @@ public class PlayerStats : MonoBehaviour
         m_health -= info.count;
         m_health = Mathf.Clamp(m_health, 0, maxHealth);
         OnDamage.Invoke(info);
-        OnChangeHealth.Invoke(m_health);
     }
 
     public void DoHeal(HealInfo info)
@@ -39,7 +47,6 @@ public class PlayerStats : MonoBehaviour
         m_health += info.count;
         m_health = Mathf.Clamp(m_health, 0, maxHealth);
         OnHeal.Invoke(info);
-        OnChangeHealth.Invoke(m_health);
     }
 
     public void SetHeath(int count)
