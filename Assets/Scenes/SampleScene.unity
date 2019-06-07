@@ -163,7 +163,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: IntChangeEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  m_maxHealth: 100
+  m_maxHealth: 1250
 --- !u!114 &433266228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +710,7 @@ PrefabInstance:
     - target: {fileID: 1808843252449276155, guid: 2005285103d403a47b90af2d56eca0d0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 1808843252449276155, guid: 2005285103d403a47b90af2d56eca0d0,
         type: 3}
@@ -762,11 +762,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1808843252627777630, guid: 2005285103d403a47b90af2d56eca0d0,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1808843252526097443, guid: 2005285103d403a47b90af2d56eca0d0,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -782,10 +777,5 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1687258584}
-    - target: {fileID: 1808843253427577327, guid: 2005285103d403a47b90af2d56eca0d0,
-        type: 3}
-      propertyPath: m_Direction
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2005285103d403a47b90af2d56eca0d0, type: 3}
