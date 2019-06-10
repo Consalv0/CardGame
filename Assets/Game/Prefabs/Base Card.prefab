@@ -28,7 +28,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484587016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0009}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4523785275234259937}
@@ -233,7 +233,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4523785274690118679}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0009}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4523785275234259937}
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 4523785275234259937}
   - component: {fileID: 4523785275234259936}
   - component: {fileID: 4523785275234259943}
-  - component: {fileID: 4523785275234259942}
+  - component: {fileID: 5128222755742517390}
   - component: {fileID: 4523785275234259938}
   - component: {fileID: 4523785275234259939}
   m_Layer: 0
@@ -586,7 +586,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4523785275234259942
+--- !u!64 &5128222755742517390
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -597,9 +597,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2661730350115830788, guid: a55ea55a2ea78014cb137f3652e90f4b, type: 3}
 --- !u!114 &4523785275234259938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
   card: {fileID: 4523785275234259939}
   transformAnimationCurves: {fileID: 11400000, guid: 7e5df8369de3bc54784be0d77188549c,
     type: 2}
-  transitionSpeed: 0.5
+  transitionSpeed: 0.8
   player: {fileID: 0}
 --- !u!114 &4523785275234259939
 MonoBehaviour:
@@ -660,7 +660,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8978136556723491201}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0009}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4523785275234259937}
