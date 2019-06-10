@@ -597,7 +597,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &4523785275234259938
@@ -616,6 +616,7 @@ MonoBehaviour:
   transformAnimationCurves: {fileID: 11400000, guid: 7e5df8369de3bc54784be0d77188549c,
     type: 2}
   transitionSpeed: 0.5
+  player: {fileID: 0}
 --- !u!114 &4523785275234259939
 MonoBehaviour:
   m_ObjectHideFlags: 0

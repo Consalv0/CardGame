@@ -8,6 +8,8 @@ public class CardHolder : MonoBehaviour
 
     public AnimationCurves transformAnimationCurves;
     public float transitionSpeed = 1.0F;
+    public PlayerHolder player;
+    public Vector3 initialScale;
 
     private Vector3 m_targetPosition;
     private Quaternion m_targetRotation;
@@ -16,6 +18,11 @@ public class CardHolder : MonoBehaviour
     [Range(0.0F, 1.0F)]
     private float m_animationKeyPosition;
     private string m_animationName;
+
+    private void Awake()
+    {
+        initialScale = transform.localScale;
+    }
 
     private void Update()
     {

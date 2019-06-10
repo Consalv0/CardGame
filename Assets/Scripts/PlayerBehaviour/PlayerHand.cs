@@ -6,9 +6,14 @@ public class PlayerHand : MonoBehaviour
 {
     public Transform handTransform;
     public float handWidth = 1.0F;
+    public float handAngle = 35.0F;
+    public AnimationCurve handCurve;
 
     private PlayerHolder m_player;
     private List<CardHolder> m_cards = new List<CardHolder>();
+    private RaycastHit[] hits = new RaycastHit[0];
+    private GameObject m_closestHit;
+    private Ray mouseRay;
 
     [Header("Remove")]
     public CardInfo cardInfo;
@@ -23,8 +28,58 @@ public class PlayerHand : MonoBehaviour
         get { return m_player; }
     }
 
+    public GameObject closestHit {
+        get {
+            return m_closestHit;
+        }
+        set {
+            if (m_closestHit != value)
+            {
+                m_closestHit = value;
+                CardHolder cardHolder = closestHit.GetComponent<CardHolder>();
+                if (cardHolder)
+                {
+                    foreach (var card in m_cards)
+                    {
+                        card.transform.localScale = card.initialScale;
+                    }
+                    cardHolder.transform.localScale = cardHolder.initialScale * 1.4F;
+                }
+                UpdateCardPositions();
+            }
+        }
+    }
+
     private void Update()
     {
+        if (hits.Length <= 0)
+        {
+            foreach (var card in m_cards)
+            {
+                card.transform.localScale = card.initialScale;
+            }
+            closestHit = gameObject;
+        }
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if ((hits = Physics.RaycastAll(mouseRay)).Length > 0)
+        {
+            float minDistance = Mathf.Infinity;
+            foreach (var hit in hits)
+            {
+                CardHolder cardHolder = hit.collider.gameObject.GetComponent<CardHolder>();
+                if (cardHolder)
+                {
+                    float distance = Vector3.Distance(hit.point, cardHolder.transform.position);
+                    if (distance < minDistance)
+                    {
+                        closestHit = hit.collider.gameObject;
+                        minDistance = distance;
+                    }
+                }
+            }
+            Debug.Log(minDistance);
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             AddCard(cardInfo);
@@ -50,6 +105,7 @@ public class PlayerHand : MonoBehaviour
     {
         GameObject card = Instantiate(baseCard, handTransform);
         CardHolder cardHolder = card.GetComponent<CardHolder>();
+        cardHolder.player = player;
         m_cards.Add(cardHolder);
         cardHolder.card.info = info;
 
@@ -75,7 +131,10 @@ public class PlayerHand : MonoBehaviour
             {
                 float cardWidth = card.transform.localScale.x * 0.9F * constrict;
                 position += new Vector3(cardWidth * 0.5F, 0, -0.001F);
-                float rotation = Mathf.LerpAngle(-45, 45, Mathf.Abs(position.x - handTransform.position.x - handWidth * 0.5F) / handWidth);
+                float t = Mathf.Abs(position.x - handTransform.position.x - handWidth * 0.5F) / handWidth;
+                float rotation = Mathf.LerpAngle(-handAngle, handAngle, t);
+                t = handCurve.Evaluate(t);
+                position.y = handTransform.position.y + Mathf.Lerp(card.transform.localScale.y * 0.3F, 0, t);
                 card.UpdatePath(position, Quaternion.AngleAxis(rotation, handTransform.forward), "FadeInFadeOut");
                 position += new Vector3(cardWidth * 0.5F, 0, 0);
             }
