@@ -5,14 +5,20 @@ using UnityEngine;
 public class PlayerHolder : MonoBehaviour
 {
     private PlayerStats m_stats;
+    private PlayerHand m_hand;
 
     private void Awake()
     {
         m_stats = GetComponent<PlayerStats>();
+        m_hand = GetComponent<PlayerHand>();
     }
 
     public PlayerStats stats {
         get { return m_stats; }
+    }
+
+    public PlayerHand hand {
+        get { return m_hand; }
     }
 
     private void Update()
