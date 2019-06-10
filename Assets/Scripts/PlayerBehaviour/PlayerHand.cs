@@ -50,13 +50,18 @@ public class PlayerHand : MonoBehaviour
     {
         ComputeClosestCardFromMouse();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Jump"))
         {
             AddCard(cardInfo);
         }
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            RemoveCard(Random.Range(0, m_cards.Count));
+            if (selectedCard)
+            {
+                m_cards.Find(card => card == selectedCard);
+                player.stats.DoDamage(new DamageInfo(player, player, 5));
+                RemoveCard(m_cards.FindIndex(card => card == selectedCard));
+            }
         }
     }
 

@@ -23,16 +23,6 @@ public class PlayerHolder : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            DamageInfo damage;
-            damage.count = Random.Range(0, m_stats.maxHealth / 3);
-            damage.target = this;
-            damage.player = this;
-
-            m_stats.DoDamage(damage);
-        }
-
         if (Input.GetButtonDown("Fire2"))
         {
             HealInfo heal;
