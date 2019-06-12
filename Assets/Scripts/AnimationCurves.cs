@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AnimationCurves", menuName = "Animation/Animation Curves")]
+[CreateAssetMenu(fileName = "Animation Curves", menuName = "Animations/Curves")]
 public class AnimationCurves : ScriptableObject
 {
     [System.Serializable]

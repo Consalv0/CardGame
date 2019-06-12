@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardType
+public struct CastInfo
 {
-    Spell, Instant, Weapon
+    public float value;
+    public int cardIndex;
+    public PlayerHolder player;
+    public PlayerHolder target;
+}
+
+public class CardBehaviour : ScriptableObject
+{
+    public virtual void Cast(CastInfo info) { }
 }
 
 [CreateAssetMenu(fileName = "CardInfo", menuName = "Cards/Card Info")]
 public class CardInfo : ScriptableObject
 {
-    public CardType cardType;
+    public CardBehaviour[] cardBehaviours;
     public string displayName = "New Card";
     [TextArea]
     public string description;

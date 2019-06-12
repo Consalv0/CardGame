@@ -28,6 +28,14 @@ public class BaseCard : MonoBehaviour
         m_holder = GetComponentInParent<CardHolder>();
     }
 
+    public virtual void Cast(CastInfo info)
+    {
+        foreach (var cardBehaviour in m_info.cardBehaviours)
+        {
+            cardBehaviour.Cast(info);
+        }
+    }
+
     public void UpdateInfo()
     {
         nameText.text = info.displayName;

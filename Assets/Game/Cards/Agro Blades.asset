@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ed36ad4882d9b4e886983a7a354db2, type: 3}
-  m_Name: BaseCardInfo
+  m_Name: Agro Blades
   m_EditorClassIdentifier: 
-  cardType: 0
-  displayName: 5 Damage
+  cardBehaviours:
+  - {fileID: 11400000, guid: ca321ed77f889a54581fbc7990331b71, type: 2}
+  displayName: Agro Blades
   description: Do <b>5</b> damage
   backCardImage: {fileID: 0}
-  cost: 5
+  cost: 1

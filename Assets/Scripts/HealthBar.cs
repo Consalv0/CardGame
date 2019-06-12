@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public PlayerHolder player;
+    public EntityHolder entity;
     [Header("Health Bar")]
     public Slider healthSlider;
     public TMPro.TextMeshProUGUI healthText;
@@ -31,39 +31,39 @@ public class HealthBar : MonoBehaviour
     {
         if (healthSlider)
         {
-            healthSlider.maxValue = player.stats.maxHealth;
-            healthSlider.value = player.stats.GetHealth();
+            healthSlider.maxValue = entity.stats.maxHealth;
+            healthSlider.value = entity.stats.GetHealth();
         }
         if (damageSlider)
         {
-            damageSlider.maxValue = player.stats.maxHealth;
-            damageSlider.value = player.stats.GetHealth();
+            damageSlider.maxValue = entity.stats.maxHealth;
+            damageSlider.value = entity.stats.GetHealth();
         }
         if (maxHealthText)
         {
-            maxHealthText.text = player.stats.maxHealth.ToString();
+            maxHealthText.text = entity.stats.maxHealth.ToString();
         }
         if (healthText)
         {
-            healthText.text = player.stats.GetHealth().ToString();
+            healthText.text = entity.stats.GetHealth().ToString();
         }
         if (smallStepsRenderer)
         {
-            smallStepsRenderer.material.SetFloat("_MaxCount", player.stats.maxHealth);
+            smallStepsRenderer.material.SetFloat("_MaxCount", entity.stats.maxHealth);
             smallStepsRenderer.material.SetFloat("_Step", smallStepSize);
         }
         if (bigStepsRenderer)
         {
-            bigStepsRenderer.material.SetFloat("_MaxCount", player.stats.maxHealth);
+            bigStepsRenderer.material.SetFloat("_MaxCount", entity.stats.maxHealth);
             bigStepsRenderer.material.SetFloat("_Step", bigStepSize);
         }
     }
 
     private void Start()
     {
-        player.stats.OnDamage.AddListener(PlayDamage);
-        player.stats.OnHeal.AddListener(PlayHeal);
-        player.stats.OnChangeHealth.AddListener(PlayHealthChange);
+        entity.stats.OnDamage.AddListener(PlayDamage);
+        entity.stats.OnHeal.AddListener(PlayHeal);
+        entity.stats.OnChangeHealth.AddListener(PlayHealthChange);
         if (smallStepsRenderer)
             smallStepsRenderer.material = new Material(smallStepsRenderer.material);
         if (bigStepsRenderer)
@@ -96,7 +96,7 @@ public class HealthBar : MonoBehaviour
 
         if (!damageSlider) return;
         damageSlider.value = damageSliderInitialSize;
-        healthSlider.value = player.stats.GetHealth();
+        healthSlider.value = entity.stats.GetHealth();
 
         if (HealthUpdateCoroutine != null)
             StopCoroutine(HealthUpdateCoroutine);
@@ -121,7 +121,7 @@ public class HealthBar : MonoBehaviour
         }
         while (damageSlider.value > healthSlider.value)
         {
-            damageSlider.value -= player.stats.maxHealth * substractSpeed * (Time.deltaTime * 100);
+            damageSlider.value -= entity.stats.maxHealth * substractSpeed * (Time.deltaTime * 100);
             yield return new WaitForSeconds(Time.deltaTime);
         }
         UpdateHealthValues();
@@ -131,10 +131,10 @@ public class HealthBar : MonoBehaviour
     {
         float currentHealth = healthSlider.value;
         UpdateHealthValues();
-        while (currentHealth < player.stats.GetHealth())
+        while (currentHealth < entity.stats.GetHealth())
         {
-            currentHealth += player.stats.maxHealth * addSpeed * (Time.deltaTime * 100);
-            currentHealth = Mathf.Min(currentHealth, player.stats.GetHealth());
+            currentHealth += entity.stats.maxHealth * addSpeed * (Time.deltaTime * 100);
+            currentHealth = Mathf.Min(currentHealth, entity.stats.GetHealth());
             if (damageSlider)
                 damageSlider.value = currentHealth;
             if (healthSlider)

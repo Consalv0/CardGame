@@ -22,6 +22,13 @@ public struct HealInfo
     public PlayerHolder player;
     public PlayerHolder target;
     public int count;
+
+    public HealInfo(PlayerHolder who, PlayerHolder to, int heal)
+    {
+        player = who;
+        target = to;
+        count = heal;
+    }
 }
 
 [System.Serializable]

@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 4523785275234259943}
   - component: {fileID: 5128222755742517390}
   - component: {fileID: 4523785275234259938}
-  - component: {fileID: 4523785275234259939}
+  - component: {fileID: 9069840621222736007}
   m_Layer: 0
   m_Name: Base Card
   m_TagString: Untagged
@@ -532,7 +532,7 @@ Transform:
   m_GameObject: {fileID: 4523785275234259941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.578, z: -0.555}
-  m_LocalScale: {x: 0.245, y: 0.3675, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4523785274843617714}
   - {fileID: 4523785274690118672}
@@ -612,12 +612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28561afd8236c3547b80f65f4f938884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 4523785275234259939}
+  card: {fileID: 0}
   transformAnimationCurves: {fileID: 11400000, guid: 7e5df8369de3bc54784be0d77188549c,
     type: 2}
   transitionSpeed: 0.8
   player: {fileID: 0}
---- !u!114 &4523785275234259939
+--- !u!114 &9069840621222736007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

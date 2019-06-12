@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerHolder))]
-public class PlayerStats : MonoBehaviour
+public class EntityStats : MonoBehaviour
 {
     public DamageEvent OnDamage;
     public HealEvent OnHeal;
@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField]
     private int m_maxHealth = 100;
-    private PlayerHolder m_player;
+    private EntityHolder m_entity;
     private int m_health;
 
     public int maxHealth 
@@ -26,13 +26,13 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        m_player = GetComponent<PlayerHolder>();
+        m_entity = GetComponent<EntityHolder>();
         m_health = maxHealth;
     }
 
-    public PlayerHolder player
+    public EntityHolder entity
     {
-        get { return m_player; }
+        get { return m_entity; }
     }
 
     public void DoDamage(DamageInfo info)
