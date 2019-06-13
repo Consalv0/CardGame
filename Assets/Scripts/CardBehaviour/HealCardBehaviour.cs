@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Heal Card")]
+[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Heal")]
 public class HealCardBehaviour : CardBehaviour
 {
     public struct CastInfo

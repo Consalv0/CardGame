@@ -54,7 +54,7 @@ public class PlayerHand : MonoBehaviour
         {
             AddCard(cardsInfo[Random.Range(0, cardsInfo.Length)]);
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && DungeonTable.instance.state != DungeonState.Busy)
         {
             if (selectedCard)
             {

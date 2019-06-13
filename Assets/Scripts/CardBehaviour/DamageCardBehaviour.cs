@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Damage Card")]
+[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Damage")]
 public class DamageCardBehaviour : CardBehaviour
 {
     public struct CastInfo {
@@ -12,16 +12,27 @@ public class DamageCardBehaviour : CardBehaviour
     }
 
     public int damage;
+    private CastInfo castInfo;
 
     public override void Cast(CardHolder card)
     {
         base.Cast(card);
-        CastInfo castInfo = new CastInfo();
+        castInfo = new CastInfo();
         castInfo.card = card;
         castInfo.holder = card.player;
-        castInfo.target = FindObjectOfType<EnemyHolder>();
 
-        Invoke(castInfo);
+        SelectEntity selection = new SelectEntity();
+        selection.OnClick = OnClick;
+        selection.ActivateEvent();
+    }
+
+    private void OnClick(EntityHolder entity)
+    {
+        if (entity)
+        {
+            castInfo.target = entity;
+            Invoke(castInfo);
+        }
     }
 
     private void Invoke(CastInfo info)
