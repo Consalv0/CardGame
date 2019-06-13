@@ -17,7 +17,7 @@ public class DungeonEvent
     public void ActivateEvent()
     {
         active = true;
-        DungeonTable.instance.events.Add(this);
+        DungeonTable.instance.AddEvent(this);
     }
 
     public void RemoveEvent()
@@ -35,7 +35,7 @@ public class SelectEntity : DungeonEvent
     public override void Update()
     {
         base.Update();
-        if (Input.GetButtonDown("Fire1") && IsActive)
+        if (Input.GetButtonUp("Fire1") && IsActive)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             var hits = Physics.RaycastAll(mouseRay);
@@ -65,19 +65,35 @@ public enum DungeonState
 [DisallowMultipleComponent]
 public class DungeonTable : MonoBehaviour
 {
-    public DungeonState state = DungeonState.Initializing;
-    public List<DungeonEvent> events = new List<DungeonEvent>();
-    public static DungeonTable instance;
-    public List<DungeonEvent> deleteEvents = new List<DungeonEvent>();
+    private DungeonState state = DungeonState.Initializing;
+    private static DungeonTable m_instance;
+    private List<DungeonEvent> events = new List<DungeonEvent>();
+    private List<DungeonEvent> deleteEvents = new List<DungeonEvent>();
+    private List<DungeonEvent> addEvents = new List<DungeonEvent>();
+
+    public bool isWaiting {
+        get {
+            return state == DungeonState.Waiting;
+        }
+    }
+
+    public static DungeonTable instance {
+        get { return m_instance; }
+    }
 
     public void RemoveEvent(DungeonEvent dungeonEvent)
     {
         deleteEvents.Add(dungeonEvent);
     }
 
+    public void AddEvent(DungeonEvent dungeonEvent)
+    {
+        addEvents.Add(dungeonEvent);
+    }
+
     private void Awake()
     {
-        instance = this;
+        m_instance = this;
     }
 
     private void Update()
@@ -94,6 +110,16 @@ public class DungeonTable : MonoBehaviour
         {
             dungeonEvent.Update();
         }
+        AddEvents();
+    }
+
+    private void AddEvents()
+    {
+        foreach (var dungeonEvent in addEvents)
+        {
+            events.Add(dungeonEvent);
+        }
+        addEvents.Clear();
     }
 
     private void RemoveEvents()
