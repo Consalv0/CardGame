@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct CastInfo
-{
-    public float value;
-    public int cardIndex;
-    public PlayerHolder player;
-    public PlayerHolder target;
-}
-
 public class CardBehaviour : ScriptableObject
 {
-    public virtual void Cast(CastInfo info) { }
+    public virtual void Cast(CardHolder card) { }
 }
 
 [CreateAssetMenu(fileName = "CardInfo", menuName = "Cards/Card Info")]

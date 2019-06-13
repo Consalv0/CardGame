@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerHolder))]
+[RequireComponent(typeof(EntityHolder))]
 public class EntityStats : MonoBehaviour
 {
-    public DamageEvent OnDamage;
-    public HealEvent OnHeal;
-    public IntChangeEvent OnChangeHealth;
+    [System.NonSerialized]
+    public DamageEvent OnDamage = new DamageEvent();
+    [System.NonSerialized]
+    public HealEvent OnHeal = new HealEvent();
+    [System.NonSerialized]
+    public IntChangeEvent OnChangeHealth = new IntChangeEvent();
 
     [SerializeField]
     private int m_maxHealth = 100;

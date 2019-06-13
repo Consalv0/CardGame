@@ -28,11 +28,11 @@ public class BaseCard : MonoBehaviour
         m_holder = GetComponentInParent<CardHolder>();
     }
 
-    public virtual void Cast(CastInfo info)
+    public virtual void Cast()
     {
         foreach (var cardBehaviour in m_info.cardBehaviours)
         {
-            cardBehaviour.Cast(info);
+            cardBehaviour.Cast(holder);
         }
     }
 

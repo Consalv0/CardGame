@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public struct DamageInfo
 {
-    public PlayerHolder player;
-    public PlayerHolder target;
+    public EntityHolder player;
+    public EntityHolder target;
     public int count;
 
-    public DamageInfo(PlayerHolder who, PlayerHolder to, int damage)
+    public DamageInfo(EntityHolder who, EntityHolder to, int damage)
     {
         player = who;
         target = to;
@@ -19,11 +19,11 @@ public struct DamageInfo
 
 public struct HealInfo
 {
-    public PlayerHolder player;
-    public PlayerHolder target;
+    public EntityHolder player;
+    public EntityHolder target;
     public int count;
 
-    public HealInfo(PlayerHolder who, PlayerHolder to, int heal)
+    public HealInfo(EntityHolder who, EntityHolder to, int heal)
     {
         player = who;
         target = to;

@@ -58,12 +58,7 @@ public class PlayerHand : MonoBehaviour
         {
             if (selectedCard)
             {
-                m_cards.Find(card => card == selectedCard);
-                CastInfo castInfo = new CastInfo();
-                castInfo.player = player;
-                castInfo.target = player;
-                castInfo.cardIndex = m_cards.FindIndex(card => card == selectedCard);
-                selectedCard.card.Cast(castInfo);
+                selectedCard.card.Cast();
             }
         }
     }
@@ -171,6 +166,18 @@ public class PlayerHand : MonoBehaviour
         UpdateCardPositions(0.8F);
     }
 
+    public void RemoveCard(CardHolder cardHolder)
+    {
+        int index = m_cards.FindIndex(card => card == cardHolder);
+        if (index >= m_cards.Count || index < 0)
+            return;
+
+        Destroy(m_cards[index].gameObject);
+        m_cards.RemoveAt(index);
+
+        UpdateCardPositions(0.8F);
+    }
+
     public void AddCard(CardInfo info)
     {
         GameObject card = Instantiate(baseCard, handTransform);
@@ -213,7 +220,7 @@ public class PlayerHand : MonoBehaviour
             float rotation = Mathf.LerpAngle(-handAngle, handAngle, t);
             t = handCurve.Evaluate(t);
             position.y = handTransform.position.y + Mathf.Lerp(card.transform.localScale.y * 0.3F, 0, t) + 
-                (isSelected ? card.transform.localScale.y * 0.8F : 0);
+                (isSelected ? card.transform.localScale.y * 0.7F : 0);
             card.UpdatePath(
                 position,
                 isSelected ? Quaternion.identity : Quaternion.AngleAxis(rotation, handTransform.forward),
