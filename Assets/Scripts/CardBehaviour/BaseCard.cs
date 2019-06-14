@@ -7,10 +7,12 @@ public class BaseCard : MonoBehaviour
     public TMPro.TextMeshPro nameText;
     public TMPro.TextMeshPro descriptionText;
     public TMPro.TextMeshPro costText;
+    public Renderer mainImage;
+    public Renderer backImage;
 
     private CardHolder m_holder;
     private CardInfo m_info;
-
+    
     public CardHolder holder {
         get { return m_holder; }
     }
@@ -28,12 +30,32 @@ public class BaseCard : MonoBehaviour
         m_holder = GetComponentInParent<CardHolder>();
     }
 
-    public virtual void Cast()
+    protected virtual void Resolve()
     {
-        foreach (var cardBehaviour in m_info.cardBehaviours)
+        m_info.cardBehaviour.Resolve();
+    }
+
+    public virtual void CheckForResolve()
+    {
+        bool canResolve = true;
+        if (!m_info.cardBehaviour.canResolve)
         {
-            cardBehaviour.Cast(holder);
+            canResolve = false;
         }
+
+        if (canResolve)
+        {
+            Resolve();
+        }
+    }
+
+    public virtual bool Cast()
+    {
+        if (!m_info.cardBehaviour.Cast(holder))
+        {
+            return false;
+        }
+        return true;
     }
 
     public void UpdateInfo()

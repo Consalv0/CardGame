@@ -13,11 +13,10 @@ public class PlayerHand : MonoBehaviour
     private PlayerHolder m_player;
     private List<CardHolder> m_cards = new List<CardHolder>();
     private RaycastHit[] m_hits = new RaycastHit[0];
-    private CardHolder m_selectedCard;
+    private CardHolder m_hoveredCard;
     private Ray m_mouseRay;
 
     [Header("Remove")]
-    public CardInfo[] cardsInfo;
     public GameObject baseCard;
 
     private void Awake()
@@ -29,18 +28,18 @@ public class PlayerHand : MonoBehaviour
         get { return m_player; }
     }
 
-    public CardHolder selectedCard {
+    public CardHolder hoveredCard {
         get {
-            return m_selectedCard;
+            return m_hoveredCard;
         }
         set {
-            if (m_selectedCard != value)
+            if (m_hoveredCard != value)
             {
-                m_selectedCard = value;
+                m_hoveredCard = value;
                 ResetCardScales();
-                if (selectedCard)
+                if (hoveredCard)
                 {
-                    IncreaseCardScale(selectedCard);
+                    IncreaseCardScale(hoveredCard);
                 }
             }
         }
@@ -49,18 +48,11 @@ public class PlayerHand : MonoBehaviour
     private void Update()
     {
         ComputeClosestCardFromMouse();
+    }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            AddCard(cardsInfo[Random.Range(0, cardsInfo.Length)]);
-        }
-        if (Input.GetButtonDown("Fire1") && DungeonTable.instance.isWaiting)
-        {
-            if (selectedCard)
-            {
-                selectedCard.card.Cast();
-            }
-        }
+    public bool ContainsCard(CardHolder cardHolder)
+    {
+        return m_cards.Contains(cardHolder);
     }
 
     private void ComputeClosestCardFromMouse()
@@ -82,7 +74,7 @@ public class PlayerHand : MonoBehaviour
 
             if (m_hits.Length <= 0)
             {
-                selectedCard = null;
+                hoveredCard = null;
             }
             if (m_hits.Length > 0)
             {
@@ -92,7 +84,7 @@ public class PlayerHand : MonoBehaviour
                     CardHolder cardHolder = hit.collider.gameObject.GetComponent<CardHolder>();
                     if (cardHolder)
                     {
-                        if (cardHolder == selectedCard)
+                        if (cardHolder == hoveredCard)
                         {
                             mouseStillOverSelectedCard = true;
                             break;
@@ -110,7 +102,7 @@ public class PlayerHand : MonoBehaviour
                             float distance = Vector3.Distance(hit.point, cardHolder.transform.position);
                             if (distance < minDistance)
                             {
-                                selectedCard = cardHolder;
+                                hoveredCard = cardHolder;
                                 minDistance = distance;
                             }
                         }
@@ -133,7 +125,7 @@ public class PlayerHand : MonoBehaviour
                         new Vector3(cardWidth, 0.5F, 0)
                     ).IntersectRay(m_mouseRay))
                 {
-                    selectedCard = card;
+                    hoveredCard = card;
                 }
                 position += new Vector3(cardWidth * 0.5F, 0, 0);
             }
@@ -212,7 +204,7 @@ public class PlayerHand : MonoBehaviour
         Vector3 position = handTransform.position - new Vector3(totalCardWidth * 0.5F * constrict, 0, 0);
         foreach (var card in m_cards)
         {
-            bool isSelected = card == selectedCard;
+            bool isSelected = card == hoveredCard;
             float cardWidth = card.transform.localScale.x * 0.9F * constrict;
 
             position += new Vector3(cardWidth * 0.5F, 0, -0.001F);
@@ -221,11 +213,14 @@ public class PlayerHand : MonoBehaviour
             t = handCurve.Evaluate(t);
             position.y = handTransform.position.y + Mathf.Lerp(card.transform.localScale.y * 0.3F, 0, t) + 
                 (isSelected ? card.transform.localScale.y * 0.7F : 0);
-            card.UpdatePath(
-                position,
-                isSelected ? Quaternion.identity : Quaternion.AngleAxis(rotation, handTransform.forward),
-                "FadeInFadeOut", transitionSpeed
-            );
+            if (card != player.cardSelection.selectedCard)
+            {
+                card.UpdatePath(
+                    position,
+                    isSelected ? Quaternion.identity : Quaternion.AngleAxis(rotation, handTransform.forward),
+                    "FadeInFadeOut", transitionSpeed
+                );
+            }
             position += new Vector3(cardWidth * 0.5F, 0, 0);
         }
     }
@@ -249,7 +244,7 @@ public class PlayerHand : MonoBehaviour
             Vector3 position = handTransform.position - new Vector3(totalCardWidth * 0.5F * constrict, 0, 0);
             foreach (var card in m_cards)
             {
-                bool isSelected = card == selectedCard;
+                bool isSelected = card == hoveredCard;
                 float cardWidth = card.transform.localScale.x * 0.9F * constrict;
 
                 position += new Vector3(cardWidth * 0.5F, 0, 0);

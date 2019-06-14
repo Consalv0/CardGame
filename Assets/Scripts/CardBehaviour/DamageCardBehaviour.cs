@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Damage")]
+[CreateAssetMenu(fileName = "New Simple Damage Card Behaviour", menuName = "Cards/Behaviours/Simple Damage")]
 public class DamageCardBehaviour : CardBehaviour
 {
     public struct CastInfo {
-        public CardHolder card;
         public PlayerHolder holder;
         public EntityHolder target;
     }
 
+    private CardHolder cardHolder;
     public int damage;
     private CastInfo castInfo;
 
-    public override void Cast(CardHolder card)
+    public override bool canResolve {
+        get { return castInfo.target != null; }
+    }
+
+    public override bool Cast(CardHolder card)
     {
-        base.Cast(card);
+        cardHolder = card;
         castInfo = new CastInfo();
-        castInfo.card = card;
         castInfo.holder = card.player;
 
         SelectEntity selection = new SelectEntity();
         selection.OnClick = OnClick;
         selection.ActivateEvent();
+        return true;
     }
 
     private void OnClick(EntityHolder entity)
@@ -31,14 +35,17 @@ public class DamageCardBehaviour : CardBehaviour
         if (entity)
         {
             castInfo.target = entity;
-            Invoke(castInfo);
+            cardHolder.card.CheckForResolve();
+        } else
+        {
+            cardHolder.player.cardSelection.CancelCast();
         }
     }
 
-    private void Invoke(CastInfo info)
+    public override void Resolve()
     {
-        DamageInfo damageInfo = new DamageInfo(info.holder, info.target, damage);
-        info.target.stats.DoDamage(damageInfo);
-        info.card.player.hand.RemoveCard(info.card);
+        DamageInfo damageInfo = new DamageInfo(castInfo.holder, castInfo.target, damage);
+        castInfo.target.stats.DoDamage(damageInfo);
+        cardHolder.player.hand.RemoveCard(cardHolder);
     }
 }

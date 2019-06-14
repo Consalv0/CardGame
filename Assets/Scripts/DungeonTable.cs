@@ -2,61 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class DungeonEvent
-{
-    private bool active = false;
-    public bool IsActive {
-        get { return active; }
-    }
-
-    public virtual void Update()
-    {
-    }
-    
-    public void ActivateEvent()
-    {
-        active = true;
-        DungeonTable.instance.AddEvent(this);
-    }
-
-    public void RemoveEvent()
-    {
-        active = false;
-        DungeonTable.instance.RemoveEvent(this);
-    }
-}
-
-public class SelectEntity : DungeonEvent
-{
-    public UnityEngine.Events.UnityAction<EntityHolder> OnClick;
-    public EntityHolder holder;
-
-    public override void Update()
-    {
-        base.Update();
-        if (Input.GetButtonUp("Fire1") && IsActive)
-        {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hits = Physics.RaycastAll(mouseRay);
-
-            foreach (var hit in hits)
-            {
-                if (hit.transform.gameObject.GetComponentInParent<EntityHolder>())
-                {
-                    holder = hit.transform.gameObject.GetComponentInParent<EntityHolder>();
-                    OnClick.Invoke(holder);
-                    RemoveEvent();
-                    break;
-                }
-            }
-
-            OnClick.Invoke(null);
-            RemoveEvent();
-        }
-    }
-}
-
 public enum DungeonState
 {
     Waiting, Initializing, Busy
@@ -98,17 +43,14 @@ public class DungeonTable : MonoBehaviour
 
     private void Update()
     {
+        RemoveEvents();
         if (events.Count > 0)
         {
             state = DungeonState.Busy;
+            events[0].Update();
         } else
         {
             state = DungeonState.Waiting;
-        }
-        RemoveEvents();
-        foreach (var dungeonEvent in events)
-        {
-            dungeonEvent.Update();
         }
         AddEvents();
     }

@@ -2,33 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Behaviour", menuName = "Cards/Behaviours/Heal")]
+[CreateAssetMenu(fileName = "New SImple Heal Card Behaviour", menuName = "Cards/Behaviours/Simple Heal")]
 public class HealCardBehaviour : CardBehaviour
 {
     public struct CastInfo
     {
-        public CardHolder card;
         public PlayerHolder holder;
         public EntityHolder target;
     }
 
+    private CardHolder cardHolder;
     public int heal;
+    private CastInfo castInfo;
 
-    public override void Cast(CardHolder card)
-    {
-        base.Cast(card);
-        CastInfo castInfo = new CastInfo();
-        castInfo.card = card;
-        castInfo.holder = card.player;
-        castInfo.target = card.player;
-
-        Invoke(castInfo);
+    public override bool canResolve {
+        get { return castInfo.target != null; }
     }
 
-    private void Invoke(CastInfo info)
+    public override bool Cast(CardHolder card)
     {
-        HealInfo healInfo = new HealInfo(info.holder, info.target, heal);
-        info.target.stats.DoHeal(healInfo);
-        info.card.player.hand.RemoveCard(info.card);
+        castInfo = new CastInfo();
+        cardHolder = card;
+        castInfo.holder = card.player;
+
+        SelectEntity selection = new SelectEntity();
+        selection.OnClick = OnClick;
+        selection.ActivateEvent();
+        return true;
+    }
+
+    private void OnClick(EntityHolder entity)
+    {
+        if (entity)
+        {
+            castInfo.target = entity;
+            cardHolder.card.CheckForResolve();
+        } else
+        {
+            cardHolder.player.cardSelection.CancelCast();
+        }
+    }
+
+    public override void Resolve()
+    {
+        HealInfo healInfo = new HealInfo(castInfo.holder, castInfo.target, heal);
+        castInfo.target.stats.DoHeal(healInfo);
+        castInfo.holder.hand.RemoveCard(cardHolder);
     }
 }

@@ -34,6 +34,24 @@ public class CardHolder : MonoBehaviour
         }
     }
 
+    public void Hide()
+    {
+        card.costText.enabled = false;
+        card.descriptionText.enabled = false;
+        card.nameText.enabled = false;
+        card.backImage.enabled = false;
+        card.mainImage.enabled = false;
+    }
+
+    public void Show()
+    {
+        card.costText.enabled = true;
+        card.descriptionText.enabled = true;
+        card.nameText.enabled = true;
+        card.backImage.enabled = true;
+        card.mainImage.enabled = true;
+    }
+
     public void UpdatePath(Vector3 targetPosition, Quaternion targetRotation, string animationName, float transitionSpeed = 1.0F)
     {
         m_animationName = animationName;

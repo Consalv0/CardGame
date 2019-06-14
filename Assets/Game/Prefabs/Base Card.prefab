@@ -615,7 +615,6 @@ MonoBehaviour:
   card: {fileID: 0}
   transformAnimationCurves: {fileID: 11400000, guid: 7e5df8369de3bc54784be0d77188549c,
     type: 2}
-  transitionSpeed: 0.8
   player: {fileID: 0}
 --- !u!114 &9069840621222736007
 MonoBehaviour:
@@ -632,6 +631,8 @@ MonoBehaviour:
   nameText: {fileID: 4523785274690118673}
   descriptionText: {fileID: 1484587018}
   costText: {fileID: 8697369196910223141}
+  mainImage: {fileID: 4523785275234259943}
+  backImage: {fileID: 4523785274843617724}
 --- !u!1 &8978136556723491201
 GameObject:
   m_ObjectHideFlags: 0
