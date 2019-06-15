@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Simple Damage Card Behaviour", menuName = "Cards/Behaviours/Simple Damage")]
 public class DamageCardBehaviour : CardBehaviour
 {
-    public struct CastInfo {
+    public struct CastInfo
+    {
         public PlayerHolder holder;
         public EntityHolder target;
     }
 
-    [SerializeField]
-    private int damage = 0;
-    private CardHolder cardHolder;
     private CastInfo castInfo;
+
+    public int damage {
+        get { return cardBehaviourProperties.intValue; }
+    }
 
     public override bool canResolve {
         get { return castInfo.target != null; }
     }
 
-    public override bool Cast(CardHolder card)
+    public override bool Cast()
     {
-        cardHolder = card;
         castInfo = new CastInfo();
-        castInfo.holder = card.player;
+        castInfo.holder = cardHolder.player;
 
         SelectEntity selection = new SelectEntity();
         selection.OnClick = OnClick;
@@ -37,7 +37,8 @@ public class DamageCardBehaviour : CardBehaviour
         {
             castInfo.target = entity;
             cardHolder.card.CheckForResolve();
-        } else
+        }
+        else
         {
             cardHolder.player.cardSelection.CancelCast();
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New SImple Heal Card Behaviour", menuName = "Cards/Behaviours/Simple Heal")]
 public class HealCardBehaviour : CardBehaviour
 {
     public struct CastInfo
@@ -11,20 +10,20 @@ public class HealCardBehaviour : CardBehaviour
         public EntityHolder target;
     }
 
-    [SerializeField]
-    private int heal = 0;
-    private CardHolder cardHolder;
     private CastInfo castInfo;
+
+    public int heal {
+        get { return cardBehaviourProperties.intValue; }
+    }
 
     public override bool canResolve {
         get { return castInfo.target != null; }
     }
 
-    public override bool Cast(CardHolder card)
+    public override bool Cast()
     {
         castInfo = new CastInfo();
-        cardHolder = card;
-        castInfo.holder = card.player;
+        castInfo.holder = cardHolder.player;
 
         SelectEntity selection = new SelectEntity();
         selection.OnClick = OnClick;
@@ -38,7 +37,8 @@ public class HealCardBehaviour : CardBehaviour
         {
             castInfo.target = entity;
             cardHolder.card.CheckForResolve();
-        } else
+        }
+        else
         {
             cardHolder.player.cardSelection.CancelCast();
         }

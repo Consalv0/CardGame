@@ -44,7 +44,10 @@ public class PlayerCardSelection : MonoBehaviour
 
         m_selectedCard = cardHolder;
         m_selectedCard.transform.Rotate(Vector3.right, 25.0F);
-        m_selectedCard.UpdatePath(cardAnchor.position, cardAnchor.rotation, "FadeInFadeOut");
+        m_selectedCard.UpdatePath(
+            new Vector3(cardAnchor.position.x, cardAnchor.position.y, m_selectedCard.transform.position.z),
+            cardAnchor.rotation, "FadeInFadeOut"
+        );
         return true;
     }
 }
