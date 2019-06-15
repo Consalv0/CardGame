@@ -11,8 +11,9 @@ public class HealCardBehaviour : CardBehaviour
         public EntityHolder target;
     }
 
+    [SerializeField]
+    private int heal = 0;
     private CardHolder cardHolder;
-    public int heal;
     private CastInfo castInfo;
 
     public override bool canResolve {

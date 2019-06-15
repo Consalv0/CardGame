@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ed36ad4882d9b4e886983a7a354db2, type: 3}
   m_Name: Agro Axe
   m_EditorClassIdentifier: 
-  cardBehaviours:
-  - {fileID: 11400000, guid: 39c919b175b961749a8df8585401531b, type: 2}
+  cardBehaviour: {fileID: 11400000, guid: 39c919b175b961749a8df8585401531b, type: 2}
   displayName: Agro Axe
   description: Do <b>10</b> damage
   backCardImage: {fileID: 0}

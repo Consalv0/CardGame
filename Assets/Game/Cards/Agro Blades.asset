@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ed36ad4882d9b4e886983a7a354db2, type: 3}
   m_Name: Agro Blades
   m_EditorClassIdentifier: 
-  cardBehaviours:
-  - {fileID: 11400000, guid: ca321ed77f889a54581fbc7990331b71, type: 2}
-  - {fileID: 11400000, guid: 39c919b175b961749a8df8585401531b, type: 2}
+  cardBehaviour: {fileID: 11400000, guid: a28d011c7d367ce47bdae3e13ef2ba37, type: 2}
   displayName: Agro Blades
   description: Do <b>5</b> damage
   backCardImage: {fileID: 0}

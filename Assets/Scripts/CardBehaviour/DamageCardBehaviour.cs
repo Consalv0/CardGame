@@ -10,8 +10,9 @@ public class DamageCardBehaviour : CardBehaviour
         public EntityHolder target;
     }
 
+    [SerializeField]
+    private int damage = 0;
     private CardHolder cardHolder;
-    public int damage;
     private CastInfo castInfo;
 
     public override bool canResolve {

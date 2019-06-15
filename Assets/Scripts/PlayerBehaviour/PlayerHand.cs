@@ -63,7 +63,7 @@ public class PlayerHand : MonoBehaviour
         float totalCardWidth = 0;
         foreach (var card in m_cards)
         {
-            totalCardWidth += card.transform.localScale.x * 0.9F;
+            totalCardWidth += GetCardWidth(card) * 0.9F;
         }
         float handCardWidth = UpdateRelativeHandWidth(totalCardWidth);
         float constrict = handCardWidth / totalCardWidth;
@@ -117,8 +117,8 @@ public class PlayerHand : MonoBehaviour
             Vector3 position = handTransform.position - new Vector3(totalCardWidth * 0.5F * constrict, 0, 0);
             foreach (var card in m_cards)
             {
-                float cardWidth = card.transform.localScale.x * 0.9F * constrict;
-
+                float cardWidth = GetCardWidth(card) * 0.9F * constrict;
+                
                 position += new Vector3(cardWidth * 0.5F, 0, 0);
                 if (new Bounds(
                         position,
@@ -136,14 +136,14 @@ public class PlayerHand : MonoBehaviour
     {
         foreach (var card in m_cards)
         {
-            card.transform.localScale = cardScale;
+            card.UpdateScale(cardScale, "FastIn", 1.5F);
         }
         UpdateCardPositions(1.5F);
     }
 
     private void IncreaseCardScale(CardHolder card)
     {
-        card.transform.localScale = cardScale * 1.4F;
+        card.UpdateScale(cardScale * 1.7F, "FastIn", 1.5F);
         UpdateCardPositions(1.5F);
     }
 
@@ -173,8 +173,8 @@ public class PlayerHand : MonoBehaviour
     public void AddCard(CardInfo info)
     {
         GameObject card = Instantiate(baseCard, handTransform);
-        card.transform.localScale = cardScale;
         CardHolder cardHolder = card.GetComponent<CardHolder>();
+        cardHolder.UpdateScale(cardScale, "FadeInFadeOut", 1.5F);
         cardHolder.player = player;
         m_cards.Add(cardHolder);
         cardHolder.card.info = info;
@@ -188,6 +188,11 @@ public class PlayerHand : MonoBehaviour
         return handCardWidth;
     }
 
+    public float GetCardWidth(CardHolder cardHolder)
+    {
+        return cardScale.x * (cardHolder == hoveredCard ? 1.5F : 1.0F);
+    }
+
     public void UpdateCardPositions(float transitionSpeed)
     {
         int cardCount = m_cards.Count;
@@ -196,7 +201,7 @@ public class PlayerHand : MonoBehaviour
         float totalCardWidth = 0;
         foreach (var card in m_cards)
         {
-            totalCardWidth += card.transform.localScale.x * 0.9F;
+            totalCardWidth += GetCardWidth(card) * 0.9F;
         }
         float handCardWidth = UpdateRelativeHandWidth(totalCardWidth);
         float constrict = handCardWidth / totalCardWidth;
@@ -205,14 +210,13 @@ public class PlayerHand : MonoBehaviour
         foreach (var card in m_cards)
         {
             bool isSelected = card == hoveredCard;
-            float cardWidth = card.transform.localScale.x * 0.9F * constrict;
+            float cardWidth = GetCardWidth(card) * 0.9F * constrict;
 
             position += new Vector3(cardWidth * 0.5F, 0, -0.001F);
-            float t = Mathf.Abs(position.x - handTransform.position.x - handCardWidth * 0.5F) / handCardWidth;
-            float rotation = Mathf.LerpAngle(-handAngle, handAngle, t);
-            t = handCurve.Evaluate(t);
-            position.y = handTransform.position.y + Mathf.Lerp(card.transform.localScale.y * 0.3F, 0, t) + 
-                (isSelected ? card.transform.localScale.y * 0.7F : 0);
+            float rotation = Mathf.LerpAngle(-handAngle, handAngle, Mathf.Abs(position.x - handTransform.position.x - handWidth * 0.5F) / handWidth);
+            float heightStamp = handCurve.Evaluate(Mathf.Abs(position.x - handTransform.position.x - handCardWidth * 0.5F) / handCardWidth);
+            position.y = handTransform.position.y + Mathf.Lerp(GetCardWidth(card) * 0.4F, 0, heightStamp) + 
+                (isSelected ? GetCardWidth(card) : 0);
             if (card != player.cardSelection.selectedCard)
             {
                 card.UpdatePath(
@@ -230,7 +234,7 @@ public class PlayerHand : MonoBehaviour
         float totalCardWidth = 0;
         foreach (var card in m_cards)
         {
-            totalCardWidth += card.transform.localScale.x * 0.9F;
+            totalCardWidth += GetCardWidth(card) * 0.9F;
         }
         float handCardWidth = UpdateRelativeHandWidth(totalCardWidth);
         float constrict = handCardWidth / totalCardWidth;
@@ -245,7 +249,7 @@ public class PlayerHand : MonoBehaviour
             foreach (var card in m_cards)
             {
                 bool isSelected = card == hoveredCard;
-                float cardWidth = card.transform.localScale.x * 0.9F * constrict;
+                float cardWidth = GetCardWidth(card) * 0.9F * constrict;
 
                 position += new Vector3(cardWidth * 0.5F, 0, 0);
                 Gizmos.color = 

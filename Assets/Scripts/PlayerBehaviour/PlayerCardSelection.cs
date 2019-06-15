@@ -32,7 +32,7 @@ public class PlayerCardSelection : MonoBehaviour
 
     public void CancelCast()
     {
-        Debug.Log("Cast Cancelled", selectedCard);
+        Debug.Log("Cast Ended", selectedCard);
         m_selectedCard = null;
         player.hand.UpdateCardPositions(0.65F);
     }
@@ -43,7 +43,7 @@ public class PlayerCardSelection : MonoBehaviour
         if (!player.hand.ContainsCard(cardHolder)) return false;
 
         m_selectedCard = cardHolder;
-        m_selectedCard.transform.Rotate(Vector3.right, 15.0F);
+        m_selectedCard.transform.Rotate(Vector3.right, 25.0F);
         m_selectedCard.UpdatePath(cardAnchor.position, cardAnchor.rotation, "FadeInFadeOut");
         return true;
     }

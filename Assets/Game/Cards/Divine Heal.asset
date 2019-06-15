@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ed36ad4882d9b4e886983a7a354db2, type: 3}
   m_Name: Divine Heal
   m_EditorClassIdentifier: 
-  cardBehaviours:
-  - {fileID: 11400000, guid: 1b353985e9783744eac32bb2680a5201, type: 2}
+  cardBehaviour: {fileID: 11400000, guid: a21e8923f8ef91b459b86d9f410bd241, type: 2}
   displayName: Divine Heal
-  description: Do <b>5</b> heal to target player
+  description: Do <b>15</b> heal to target player
   backCardImage: {fileID: 0}
   cost: 1
