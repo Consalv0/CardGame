@@ -40,7 +40,7 @@ public class SelectEntity : DungeonEvent
                     holder = hit.transform.gameObject.GetComponentInParent<EntityHolder>();
                     OnClick.Invoke(holder);
                     RemoveEvent();
-                    break;
+                    return;
                 }
             }
 

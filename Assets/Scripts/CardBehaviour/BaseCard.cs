@@ -59,6 +59,11 @@ public class BaseCard : MonoBehaviour
         return true;
     }
 
+    public virtual void CancelCast()
+    {
+        m_cardBehaviour.CancelCast();
+    }
+
     public void UpdateInfo()
     {
         nameText.text = info.displayName;

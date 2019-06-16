@@ -18,6 +18,6 @@ MonoBehaviour:
     m_intValue: 15
     m_floatValue: 0
   displayName: Divine Heal
-  description: Do <b>15</b> heal to target player
+  description: Do <b>15</b> heal to target entity
   backCardImage: {fileID: 0}
   cost: 1

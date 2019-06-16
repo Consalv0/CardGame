@@ -19,6 +19,7 @@ public struct CardBehaviourProperties
     }
 }
 
+[DisallowMultipleComponent]
 public class CardBehaviour : MonoBehaviour
 {
     protected CardHolder cardHolder;
@@ -37,5 +38,6 @@ public class CardBehaviour : MonoBehaviour
     }
 
     public virtual bool Cast() { return false; }
+    public virtual void CancelCast() {  }
     public virtual void Resolve() { }
 }

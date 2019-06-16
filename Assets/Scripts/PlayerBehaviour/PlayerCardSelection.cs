@@ -32,7 +32,7 @@ public class PlayerCardSelection : MonoBehaviour
 
     public void CancelCast()
     {
-        Debug.Log("Cast Ended", selectedCard);
+        m_selectedCard.card.CancelCast();
         m_selectedCard = null;
         player.hand.UpdateCardPositions(0.65F);
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class HealCardBehaviour : CardBehaviour
 {
     public struct CastInfo
@@ -11,6 +12,7 @@ public class HealCardBehaviour : CardBehaviour
     }
 
     private CastInfo castInfo;
+    private SelectEntity selection;
 
     public int heal {
         get { return cardBehaviourProperties.intValue; }
@@ -25,10 +27,15 @@ public class HealCardBehaviour : CardBehaviour
         castInfo = new CastInfo();
         castInfo.holder = cardHolder.player;
 
-        SelectEntity selection = new SelectEntity();
+        selection = new SelectEntity();
         selection.OnClick = OnClick;
         selection.ActivateEvent();
         return true;
+    }
+
+    public override void CancelCast()
+    {
+        selection.RemoveEvent();
     }
 
     private void OnClick(EntityHolder entity)
