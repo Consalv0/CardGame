@@ -37,7 +37,8 @@ public class CardBehaviour : MonoBehaviour
         cardHolder = GetComponent<CardHolder>();
     }
 
-    public virtual bool Cast() { return false; }
+    public virtual void Cast() { }
+    public virtual bool CanCast() { return false; }
     public virtual void CancelCast() {  }
     public virtual void Resolve() { }
 }

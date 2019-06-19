@@ -653,11 +653,11 @@ MonoBehaviour:
   healthSlider: {fileID: 1808843251740600867}
   healthText: {fileID: 1808843251587895309}
   maxHealthText: {fileID: 1808843253245315812}
-  addSpeed: 0.02
+  addSpeed: 0.01
   damageSlider: {fileID: 1808843253427577327}
   damageGraphic: {fileID: 1808843252627777631}
   stunDamageTime: 0.4
-  substractSpeed: 0.02
+  substractSpeed: 0.01
   smallStepSize: 100
   smallStepsRenderer: {fileID: 3107039619295678139}
   bigStepSize: 1000

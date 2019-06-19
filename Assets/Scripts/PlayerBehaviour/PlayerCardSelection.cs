@@ -17,20 +17,12 @@ public class PlayerCardSelection : MonoBehaviour
         get { return m_selectedCard; }
     }
 
-
     private void Awake()
     {
         m_player = GetComponent<PlayerHolder>();
     }
 
-    public bool CastCard()
-    {
-        if (m_selectedCard == null) return false;
-
-        return m_selectedCard.card.Cast();
-    }
-
-    public void CancelCast()
+    public void CancelSelection()
     {
         m_selectedCard.card.CancelCast();
         m_selectedCard = null;
@@ -40,6 +32,7 @@ public class PlayerCardSelection : MonoBehaviour
     public bool SelectCard(CardHolder cardHolder)
     {
         if (cardHolder == null) return false;
+        if (!cardHolder.card.Cast()) return false;
         if (!player.hand.ContainsCard(cardHolder)) return false;
 
         m_selectedCard = cardHolder;

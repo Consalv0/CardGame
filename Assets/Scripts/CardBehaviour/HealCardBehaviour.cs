@@ -22,15 +22,20 @@ public class HealCardBehaviour : CardBehaviour
         get { return castInfo.target != null; }
     }
 
-    public override bool Cast()
+    public override bool CanCast()
     {
+        return cardHolder.player.mana >= cardHolder.card.info.cost;
+    }
+
+    public override void Cast()
+    {
+
         castInfo = new CastInfo();
         castInfo.holder = cardHolder.player;
 
         selection = new SelectEntity();
         selection.OnClick = OnClick;
         selection.ActivateEvent();
-        return true;
     }
 
     public override void CancelCast()
@@ -47,7 +52,7 @@ public class HealCardBehaviour : CardBehaviour
         }
         else
         {
-            cardHolder.player.cardSelection.CancelCast();
+            cardHolder.player.cardSelection.CancelSelection();
         }
     }
 
@@ -56,5 +61,6 @@ public class HealCardBehaviour : CardBehaviour
         HealInfo healInfo = new HealInfo(castInfo.holder, castInfo.target, heal);
         castInfo.target.stats.DoHeal(healInfo);
         castInfo.holder.hand.RemoveCard(cardHolder);
+        cardHolder.player.mana -= cardHolder.card.info.cost;
     }
 }

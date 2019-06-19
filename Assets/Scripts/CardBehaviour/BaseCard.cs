@@ -52,11 +52,12 @@ public class BaseCard : MonoBehaviour
 
     public virtual bool Cast()
     {
-        if (!m_cardBehaviour.Cast())
+        if (m_cardBehaviour.CanCast())
         {
-            return false;
+            m_cardBehaviour.Cast();
+            return true;
         }
-        return true;
+        return false;
     }
 
     public virtual void CancelCast()
