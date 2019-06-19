@@ -14,4 +14,13 @@ public class EntityHolder : MonoBehaviour
     public EntityStats stats {
         get { return m_stats; }
     }
+
+    public bool isDeath()
+    {
+        if (stats.GetHealth() <=0 )
+        {
+            return true;
+        }
+        return false;
+    }
 }

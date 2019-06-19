@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         movCanv.SetActive(false);
         nextButton.onClick.AddListener(MovePlayer);
 
-
+      
     }
 
    
