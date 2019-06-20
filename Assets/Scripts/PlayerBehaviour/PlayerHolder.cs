@@ -38,7 +38,20 @@ public class PlayerHolder : EntityHolder
         m_cardSelection = GetComponent<PlayerCardSelection>();
         mana = m_maxMana;
     }
-    
+
+    private void Start()
+    {
+        AddHand();
+    }
+
+    public void AddHand()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            hand.AddCard(cardsInfo[Random.Range(0, cardsInfo.Length)]);
+        }
+    }
+
     private void Update()
     {
 

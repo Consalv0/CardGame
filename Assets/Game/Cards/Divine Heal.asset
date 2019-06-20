@@ -20,4 +20,4 @@ MonoBehaviour:
   displayName: Divine Heal
   description: Do <b>15</b> heal to target entity
   backCardImage: {fileID: 0}
-  cost: 1
+  cost: 2

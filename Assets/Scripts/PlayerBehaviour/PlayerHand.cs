@@ -50,6 +50,13 @@ public class PlayerHand : MonoBehaviour
         ComputeClosestCardFromMouse();
     }
 
+    public void DiscardHand()
+    {
+        while (m_cards.Count > 0) {
+            RemoveCard(m_cards[0]);
+        }
+    }
+
     public bool ContainsCard(CardHolder cardHolder)
     {
         return m_cards.Contains(cardHolder);
